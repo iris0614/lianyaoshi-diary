@@ -357,6 +357,20 @@ button { cursor: pointer; }
   min-height: 0;
   overflow: auto;
 }
+.site-notice {
+  flex: none;
+  border-top: 1px solid var(--line);
+  background: #f5f5f7;
+  padding: 14px 28px;
+}
+.site-notice p {
+  max-width: 760px;
+  margin: 0 auto;
+  color: #6e6e73;
+  font-size: 13px;
+  line-height: 1.65;
+  font-weight: 400;
+}
 .page {
   max-width: 760px;
   margin: 0 auto;
@@ -662,8 +676,12 @@ button { cursor: pointer; }
   }
   .primary { min-height: 44px; }
   .page {
-    padding: 28px max(18px, env(safe-area-inset-right)) max(72px, calc(24px + env(safe-area-inset-bottom))) max(18px, env(safe-area-inset-left));
+    padding: 28px max(18px, env(safe-area-inset-right)) 32px max(18px, env(safe-area-inset-left));
   }
+  .site-notice {
+    padding: 12px max(16px, env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  }
+  .site-notice p { font-size: 12.5px; }
   .page h1 { font-size: 30px; }
   .article { font-size: 17.5px; }
   .form-row { grid-template-columns: 1fr; }
