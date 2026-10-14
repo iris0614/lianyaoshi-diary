@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f3eee4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="深度日记">
+  <title>炼药师的财经世界 · 深度日记</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%238f2d2a'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-size='36' fill='%23f6f1e7' font-family='serif'%3E炼%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="seal" aria-hidden="true">炼</div>
+        <div>
+          <div class="brand-title">炼药师的财经世界</div>
+          <div class="brand-sub">深度日记</div>
+        </div>
+      </div>
+      <label class="search">
+        <span class="sr">搜索</span>
+        <input id="search" type="search" placeholder="搜索标题或正文" autocomplete="off">
+      </label>
+      <div class="years" id="years"></div>
+      <div class="view-switch" role="tablist">
+        <button type="button" id="viewList" class="on" role="tab" aria-selected="true">目录</button>
+        <button type="button" id="viewCal" role="tab" aria-selected="false">日历</button>
+      </div>
+      <div class="list" id="list"></div>
+      <div class="side-foot">
+        <button type="button" class="primary block" id="composeSide">写下新的一篇</button>
+      </div>
+    </aside>
+    <div class="scrim" id="scrim" hidden></div>
+    <main class="main">
+      <header class="topbar">
+        <button type="button" class="menu-btn" id="menuBtn">目录</button>
+        <div class="crumb" id="crumb">深度日记</div>
+        <button type="button" class="primary" id="composeBtn">新日记</button>
+      </header>
+      <div class="reader" id="reader">
+        <p class="loading">正在打开日记…</p>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal" id="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <form class="sheet" id="entryForm">
+      <div class="sheet-head">
+        <h2>新的一篇</h2>
+        <button type="button" class="icon-btn" data-close aria-label="关闭">×</button>
+      </div>
+      <div class="form-row">
+        <label>日期
+          <input id="fieldDate" name="date" type="date" required>
+        </label>
+        <label>时间
+          <input id="fieldTime" name="time" type="time">
+        </label>
+      </div>
+      <label>标题
+        <input id="fieldTitle" name="title" type="text" maxlength="120" placeholder="这一篇在说什么">
+      </label>
+      <label>正文
+        <textarea id="fieldBody" name="body" rows="11" placeholder="直接写。换行就是新的一段。需要强调时用 **这样**。"></textarea>
+      </label>
+      <div class="drop" id="drop">
+        <input id="fieldImages" name="images" type="file" accept="image/jpeg,image/png,image/gif,image/webp,image/heic,image/heif,.heic,.heif" multiple>
+        <span>添加图片，可以多选，也可以拖进来</span>
+      </div>
+      <div class="previews" id="previews"></div>
+      <p class="form-error" id="formError" hidden></p>
+      <div class="form-actions">
+        <button type="button" class="ghost" data-close>取消</button>
+        <button type="submit" class="primary" id="saveBtn">保存</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button type="button" class="lb-close" id="lbClose" aria-label="关闭">×</button>
+    <button type="button" class="lb-nav prev" id="lbPrev" aria-label="上一张">‹</button>
+    <img id="lbImg" alt="">
+    <button type="button" class="lb-nav next" id="lbNext" aria-label="下一张">›</button>
+    <div class="lb-count" id="lbCount"></div>
+  </div>
+
+  <script src="diary-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
