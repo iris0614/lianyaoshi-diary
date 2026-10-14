@@ -64,8 +64,8 @@ button { cursor: pointer; }
   flex: none;
   display: grid;
   place-items: center;
-  background: #1d1d1f;
-  color: #ffffff;
+  background: #e8f2fc;
+  color: #0071e3;
   border-radius: 10px;
   font-family: var(--sans);
   font-size: 20px;
@@ -119,8 +119,8 @@ button { cursor: pointer; }
   padding: 4px 8px;
 }
 .years button.on {
-  background: #1d1d1f;
-  color: #ffffff;
+  background: #e8f2fc;
+  color: #0071e3;
 }
 
 .view-switch {
