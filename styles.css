@@ -391,6 +391,7 @@ button { cursor: pointer; }
   font-size: clamp(32px, 4vw, 44px);
   line-height: 1.15;
   letter-spacing: -0.02em;
+  text-align: start;
 }
 .page .meta {
   margin-top: 12px;
@@ -414,6 +415,8 @@ button { cursor: pointer; }
   color: var(--ink-title);
   line-height: 1.45;
   letter-spacing: 0.02em;
+  text-align: start;
+  text-wrap: wrap;
 }
 .article h2 { font-size: 1.35rem; margin: 1.8em 0 0.6em; }
 .article h3 { font-size: 1.18rem; margin: 1.7em 0 0.55em; }
@@ -428,7 +431,19 @@ button { cursor: pointer; }
   letter-spacing: 0;
   font-variant-numeric: tabular-nums;
 }
-.article p { margin: 0 0 0.95em; }
+.article p,
+.article li {
+  margin: 0 0 0.95em;
+  text-align: justify;
+  text-align-last: start;
+  text-justify: inter-character;
+  text-wrap: pretty;
+  line-break: strict;
+  word-break: normal;
+  overflow-wrap: break-word;
+  hanging-punctuation: allow-end;
+}
+.article li { margin: 0.25em 0; }
 .article strong {
   font-weight: 700;
   color: var(--ink-title);
@@ -446,7 +461,6 @@ button { cursor: pointer; }
 }
 .article blockquote p:last-child { margin-bottom: 0; }
 .article ul, .article ol { margin: 0.4em 0 1.1em; padding-left: 1.3em; }
-.article li { margin: 0.25em 0; }
 .article hr {
   border: 0;
   border-top: 1px solid var(--line);
