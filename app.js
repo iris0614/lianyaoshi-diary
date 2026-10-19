@@ -204,6 +204,95 @@ function headingHtml(text) {
   return escapeHtml(clean);
 }
 
+function flowDiagram() {
+  const tag = (text) => `<div class="tag">${text}</div>`;
+  const arr = (extra = "") => `<div class="arr ${extra}"><i></i></div>`;
+  const node = (cls, html) => `<div class="node ${cls}">${html}</div>`;
+  const bubble = `${node("asset", "若集中追逐股票、房地产")}
+    ${arr()}
+    ${node("end asset", "<strong>资产价格上涨</strong><span>可能形成泡沫</span>")}`;
+  return `<figure class="flow">
+    <figcaption>央行放水后的资金去向与政策效果</figcaption>
+    <div class="flow-top">
+      ${node("", "央行放水：降息、购买资产等")}
+      ${arr()}
+      ${node("", "货币与信贷传导")}
+    </div>
+    <div class="flow-gate">
+      <div class="gate-col">
+        ${tag("传导受阻")}
+        ${arr()}
+        ${node("", "资金需求弱、银行惜贷<br>或居民企业还债")}
+        ${arr()}
+        ${node("end", "<strong>刺激效果有限</strong>")}
+      </div>
+      <div class="gate-col">
+        ${tag("传导成功")}
+        ${arr("long")}
+      </div>
+    </div>
+    <div class="elbow" aria-hidden="true"><i></i><b></b><s></s></div>
+    ${node("judge absorb", "实体经济吸纳能力如何？")}
+    <div class="fork3">
+      <div class="bar" aria-hidden="true"></div>
+      <section class="col real">
+        ${tag("较强")}
+        ${arr()}
+        ${node("real", "投资、生产、就业<br>与消费")}
+        ${arr()}
+        ${node("end real", "<strong>收入与需求增长</strong><span>可能推升物价</span>")}
+      </section>
+      <div class="rest">
+        ${tag("较弱")}
+        ${arr()}
+        ${node("judge", "资本项目开放程度？")}
+        <div class="two">
+          <div class="col mid">
+            ${tag("受限")}
+            ${arr()}
+            ${node("asset", "资金更倾向留在国内")}
+            <div class="recv d-only" aria-hidden="true"></div>
+            <div class="d-only">${bubble}</div>
+            <div class="m-only">${arr()}${bubble}</div>
+          </div>
+          <div class="col out-col">
+            ${tag("开放")}
+            ${arr()}
+            ${node("judge", "实际资本流向？")}
+            <div class="to-mid d-only"><i></i><b>留在国内／净流入</b></div>
+            <div class="m-only">
+              ${tag("留在国内／净流入")}
+              ${arr()}
+              ${bubble}
+            </div>
+            ${tag("净流出")}
+            ${arr()}
+            ${node("out", "本币承受贬值压力<span>刺激可能向海外溢出</span>")}
+            <div class="fx">
+              <div class="rail" aria-hidden="true"></div>
+              <div class="fx-main">
+                ${tag("折算")}
+                ${arr()}
+                ${node("judge", "本币M2增长与汇率变化")}
+                <div class="pair">
+                  ${node("end out", "<strong>美元计价M2上升</strong>")}
+                  ${node("end out", "<strong>美元计价M2下降</strong><span>本币M2的美元折算价值下降</span>")}
+                </div>
+              </div>
+            </div>
+            ${tag("若同时出现")}
+            ${node("out", "若贬值伴随美元债偿付压力上升、融资趋紧，或央行为稳汇率而收紧")}
+            ${arr()}
+            ${node("end out", "<strong>可能削弱刺激效果</strong>")}
+            <p class="aside">进口成本上升可能推升通胀，<br>并可能挤压实际收入和消费。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="foot">依据原文机制整理；各路径均为条件性结果，美元折算变化不等同于国内货币紧缩。</p>
+  </figure>`;
+}
+
 function renderMarkdown(markdown) {
   const lines = String(markdown || "").replace(/\r\n/g, "\n").split("\n");
   const html = [];
@@ -219,7 +308,9 @@ function renderMarkdown(markdown) {
     const image = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
     if (image) {
       const src = safeImage(image[2]);
-      if (src) {
+      if (src && src.includes("monetary-policy-flow")) {
+        html.push(flowDiagram());
+      } else if (src) {
         html.push(`<figure><img src="${escapeHtml(src)}" alt="${escapeHtml(unescapeMd(image[1]))}" loading="lazy"></figure>`);
       }
       index += 1;
