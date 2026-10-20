@@ -804,6 +804,7 @@ button { cursor: pointer; }
 .article .flow .gate-col { min-width: 0; }
 .article .flow .arr.long { height: 100%; min-height: 92px; }
 .article .flow .arr.long i { height: 100%; }
+.article .flow .arr.long i::after { content: none; }
 .article .flow .elbow {
   position: relative;
   height: 26px;
@@ -1001,6 +1002,7 @@ button { cursor: pointer; }
   .article .flow .pair { grid-template-columns: 1fr; }
   .article .flow .arr.long { min-height: 22px; height: auto; }
   .article .flow .arr.long i { height: 22px; }
+  .article .flow .arr.long i::after { content: ""; }
   .article .flow .elbow,
   .article .flow .fork3 .bar { display: none; }
   .article .flow .arr.grow { flex: none; }
