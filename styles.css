@@ -970,6 +970,8 @@ button { cursor: pointer; }
   gap: 8px;
   margin-top: 8px;
 }
+.article .flow .m2-pair { align-items: start; }
+.article .flow .m2-down { display: flex; flex-direction: column; }
 .article .flow .pair .node { min-height: 64px; }
 .article .flow .aside,
 .article .flow .foot {

@@ -268,23 +268,21 @@ function flowDiagram() {
             ${tag("净流出")}
             ${arr()}
             ${node("out", "本币承受贬值压力<span>刺激可能向海外溢出</span>")}
-            <div class="fx">
-              <div class="rail" aria-hidden="true"></div>
-              <div class="fx-main">
-                ${tag("折算")}
+            ${tag("折算")}
+            ${arr()}
+            ${node("judge", "本币M2增长与汇率变化")}
+            <div class="pair m2-pair">
+              <div class="m2-up">
+                ${node("end out", "<strong>美元计价<br>M2上升</strong>")}
+              </div>
+              <div class="m2-down">
+                ${node("out", "<strong>美元计价<br>M2下降</strong><span>本币M2的美元折算价值下降</span>")}
                 ${arr()}
-                ${node("judge", "本币M2增长与汇率变化")}
-                <div class="pair">
-                  ${node("end out", "<strong>美元计价M2上升</strong>")}
-                  ${node("end out", "<strong>美元计价M2下降</strong><span>本币M2的美元折算价值下降</span>")}
-                </div>
               </div>
             </div>
-            ${tag("若同时出现")}
-            ${node("out", "若贬值伴随美元债偿付压力上升、融资趋紧，或央行为稳汇率而收紧")}
+            ${node("out", "若伴随美元债偿付压力上升、美元融资趋紧，或央行为稳汇率而收紧")}
             ${arr()}
-            ${node("end out", "<strong>可能削弱刺激效果</strong>")}
-            <p class="aside">进口成本上升可能推升通胀，<br>并可能挤压实际收入和消费。</p>
+            ${node("end out", "<strong>国内金融条件可能收紧</strong><span>抵消部分放水效果</span>")}
           </div>
         </div>
       </div>
