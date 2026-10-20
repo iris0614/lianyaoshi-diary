@@ -226,12 +226,12 @@ function flowDiagram() {
         ${arr()}
         ${node("end", "<strong>刺激效果有限</strong>")}
       </div>
-      <div class="gate-col">
+      <div class="gate-col pass-col">
         ${tag("传导成功")}
+        <div class="pass-elbow" aria-hidden="true"><i></i></div>
         ${arr("long")}
       </div>
     </div>
-    <div class="elbow" aria-hidden="true"><i></i><b></b><s></s></div>
     ${node("judge absorb", "实体经济吸纳能力如何？")}
     <div class="fork3">
       <div class="bar" aria-hidden="true"></div>

@@ -802,40 +802,40 @@ button { cursor: pointer; }
   align-items: stretch;
 }
 .article .flow .gate-col { min-width: 0; }
-.article .flow .arr.long { height: 100%; min-height: 92px; }
-.article .flow .arr.long i { height: 100%; }
-.article .flow .arr.long i::after { content: none; }
-.article .flow .elbow {
+.article .flow .pass-col { display: flex; flex-direction: column; }
+.article .flow .arr.long { display: none; }
+.article .flow .pass-elbow {
   position: relative;
-  height: 26px;
-  margin: 0;
+  flex: 1;
+  min-height: 28px;
 }
-.article .flow .elbow i {
+.article .flow .pass-elbow::before {
+  content: "";
   position: absolute;
   top: 0;
-  left: 75%;
+  bottom: 0;
+  left: calc(50% - 0.75px);
   width: 1.5px;
-  height: 13px;
   background: var(--f-line);
 }
-.article .flow .elbow b {
+.article .flow .pass-elbow::after {
+  content: "";
   position: absolute;
-  top: 13px;
-  left: 50%;
-  width: 25%;
+  left: -8px;
+  bottom: 0;
+  width: calc(50% + 9px);
   height: 1.5px;
   background: var(--f-line);
 }
-.article .flow .elbow s {
+.article .flow .pass-elbow i {
   position: absolute;
-  top: 13px;
-  left: 50%;
+  left: calc(-8px - 0.75px);
+  bottom: -18px;
   width: 1.5px;
-  height: 13px;
+  height: 18px;
   background: var(--f-line);
-  text-decoration: none;
 }
-.article .flow .elbow s::after {
+.article .flow .pass-elbow i::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -845,7 +845,7 @@ button { cursor: pointer; }
   border-right: 5px solid transparent;
   border-top: 7px solid var(--f-line);
 }
-.article .flow .absorb { margin-top: 0; }
+.article .flow .absorb { margin-top: 22px; }
 .article .flow .fork3 {
   display: grid;
   grid-template-columns: minmax(0, 0.86fr) minmax(0, 2.14fr);
@@ -1000,10 +1000,15 @@ button { cursor: pointer; }
   .article .flow .fork3,
   .article .flow .two,
   .article .flow .pair { grid-template-columns: 1fr; }
-  .article .flow .arr.long { min-height: 22px; height: auto; }
+  .article .flow .pass-elbow { display: none; }
+  .article .flow .arr.long {
+    display: flex;
+    min-height: 22px;
+    height: auto;
+  }
   .article .flow .arr.long i { height: 22px; }
   .article .flow .arr.long i::after { content: ""; }
-  .article .flow .elbow,
+  .article .flow .absorb { margin-top: 0; }
   .article .flow .fork3 .bar { display: none; }
   .article .flow .arr.grow { flex: none; }
   .article .flow .arr.grow i { height: 22px; }
