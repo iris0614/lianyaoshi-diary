@@ -1312,18 +1312,21 @@ button { cursor: pointer; }
 .article .spread .paths {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: repeat(9, auto);
+  grid-template-rows: repeat(8, auto);
   column-gap: 12px;
   padding-top: 28px;
 }
 .article .spread .path {
   display: grid;
   grid-template-rows: subgrid;
-  grid-row: span 9;
+  grid-row: span 8;
   min-width: 0;
 }
 .article .spread .path .node { height: 100%; }
-.article .spread .caveat:empty { margin: 0; }
+.article .spread .paths-wrap > .caveat {
+  margin: 8px 0 0;
+  text-align: left;
+}
 .article .spread .watch {
   margin-top: 16px;
   padding: 10px 12px 12px;

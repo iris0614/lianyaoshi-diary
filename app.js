@@ -299,7 +299,7 @@ function spreadDiagram() {
       ${arr("dash")}
       ${node("read", read)}
     </div>`;
-  const path = (label, state, read, cond, end, caveat = "") => `<section class="path">
+  const path = (label, state, read, cond, end) => `<section class="path">
       <div class="tag">${label}</div>
       ${arr("mob")}
       ${node("m3", state)}
@@ -309,7 +309,6 @@ function spreadDiagram() {
       ${node("read", cond)}
       ${arr("dash")}
       ${node("end", end)}
-      <p class="caveat">${caveat}</p>
     </section>`;
   return `<figure class="spread">
     <figcaption>美债期限利差劈叉：不同情景与后续演化</figcaption>
@@ -369,8 +368,7 @@ function spreadDiagram() {
           "开始收缩，<br>甚至倒挂",
           "作者解释：<br>美国增长也开始转弱",
           "若全球经济联动仍强：<br>全球放缓向美国传导",
-          "<strong>此前分化可能转为共同走弱</strong><span>衰退风险信号增强</span>",
-          "「分化收敛」仍需结合10Y－2Y的同期变化判断，<br>不得仅凭10Y－3M下降直接认定。"
+          "<strong>此前分化可能转为共同走弱</strong><span>衰退风险信号增强</span>"
         )}
         ${path(
           "路径2",
@@ -387,6 +385,7 @@ function spreadDiagram() {
           "<strong>进入观察阶段</strong><span>尚不能确认衰退</span>"
         )}
       </div>
+      <p class="caveat">「分化收敛」仍需结合10Y－2Y的同期变化判断，不得仅凭10Y－3M下降直接认定。</p>
     </div>
     <aside class="watch">
       <div class="node d23"><strong>2Y－3M：两个利差的相对位置</strong></div>
