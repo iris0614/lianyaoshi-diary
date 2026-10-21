@@ -291,6 +291,123 @@ function flowDiagram() {
   </figure>`;
 }
 
+function spreadDiagram() {
+  const arr = (extra = "") => `<div class="arr ${extra}"><i></i></div>`;
+  const node = (cls, html) => `<div class="node ${cls}">${html}</div>`;
+  const branch = (cls, state, read) => `<div class="branch">
+      ${node(cls, state)}
+      ${arr("dash")}
+      ${node("read", read)}
+    </div>`;
+  const path = (label, state, read, cond, end, caveat = "") => `<section class="path">
+      <div class="tag">${label}</div>
+      ${arr("mob")}
+      ${node("m3", state)}
+      ${arr("dash")}
+      ${node("read", read)}
+      ${arr("dash")}
+      ${node("read", cond)}
+      ${arr("dash")}
+      ${node("end", end)}
+      <p class="caveat">${caveat}</p>
+    </section>`;
+  return `<figure class="spread">
+    <figcaption>美债期限利差劈叉：不同情景与后续演化</figcaption>
+    <p class="legend"><i class="y2"></i><span>10Y－2Y</span><i class="m3"></i><span>10Y－3M</span><i class="d23"></i><span>2Y－3M</span></p>
+    <div class="metrics">
+      ${node("y2", "<strong>10Y－2Y</strong><span>10年期收益率－2年期收益率</span>")}
+      ${node("m3", "<strong>10Y－3M</strong><span>10年期收益率－3个月收益率</span>")}
+      <div class="metric-diff">
+        ${node("d23", "<strong>两者之差</strong><span>（10Y－3M）－（10Y－2Y）<br>＝2Y－3M</span>")}
+        <p>衡量两个期限利差之间的距离；<br>距离扩大不一定意味着二者方向相反。</p>
+      </div>
+    </div>
+    ${arr()}
+    ${node("hub", "两个期限利差发生分化")}
+    ${arr("plain")}
+    <div class="fork-wrap">
+      <div class="bar desk" aria-hidden="true"><i></i><i></i></div>
+      <div class="scenes">
+        <section class="scene">
+          <div class="tag">情景A</div>
+          ${arr("mob")}
+          <div class="pair">
+            ${branch("y2", "10Y－2Y<br>缩窄／倒挂", "作者解释：<br>全球增长预期转弱，<br>紧缩压力显现。")}
+            ${branch("m3", "10Y－3M维持较高<br>水平或继续扩大", "作者解释：<br>美国经济相对仍强，<br>尚未同步走弱。")}
+          </div>
+          <div class="join desk" aria-hidden="true"><b></b><i></i></div>
+          ${arr("mob")}
+          ${node("end", "<strong>美国相对强，<br>全球相对弱。</strong>")}
+        </section>
+        <section class="scene">
+          <div class="tag">情景B</div>
+          ${arr("mob")}
+          <div class="pair">
+            ${branch("y2", "10Y－2Y扩大", "作者解释：<br>全球增长环境较好。")}
+            ${branch("m3", "10Y－3M相对更强，<br>且两个利差的<br>距离扩大", "作者解释：<br>美国经济比<br>全球平均更强。")}
+          </div>
+          <div class="join desk" aria-hidden="true"><b></b><i></i></div>
+          ${arr("mob")}
+          ${node("end", "<strong>全球较好，<br>美国更强。</strong>")}
+        </section>
+      </div>
+    </div>
+    <div class="bridge">
+      <div class="stem desk" aria-hidden="true"></div>
+      <p class="shared">以上是文章的宏观解释，不是期限利差与地区增长之间的一一对应关系。</p>
+    </div>
+    <div class="to-q desk" aria-hidden="true"><i></i></div>
+    <p class="mob from-a">承接情景A：美国相对强，全球相对弱</p>
+    ${arr("mob")}
+    ${node("judge m3", "未来10Y－3M如何变化？")}
+    ${arr("plain desk")}
+    <div class="fork-wrap paths-wrap">
+      <div class="bar desk three" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="paths">
+        ${path(
+          "路径1",
+          "开始收缩，<br>甚至倒挂",
+          "作者解释：<br>美国增长也开始转弱",
+          "若全球经济联动仍强：<br>全球放缓向美国传导",
+          "<strong>此前分化可能转为共同走弱</strong><span>衰退风险信号增强</span>",
+          "「分化收敛」仍需结合10Y－2Y的同期变化判断，<br>不得仅凭10Y－3M下降直接认定。"
+        )}
+        ${path(
+          "路径2",
+          "维持高位或进一步扩大，<br>同时10Y－2Y仍倒挂",
+          "作者解释：<br>美国保持相对韧性，<br>全球仍弱",
+          "可能解释：<br>经济周期分化持续，<br>逆全球化或地缘因素削弱联动",
+          "<strong>美国独强的格局延续</strong>"
+        )}
+        ${path(
+          "路径3",
+          "停止扩大，<br>但尚未明显收缩",
+          "作者解释：<br>美国相对强势<br>可能接近拐点",
+          "下一步观察：<br>是否转为持续收缩",
+          "<strong>进入观察阶段</strong><span>尚不能确认衰退</span>"
+        )}
+      </div>
+    </div>
+    <aside class="watch">
+      <div class="node d23"><strong>2Y－3M：两个利差的相对位置</strong></div>
+      <ul>
+        <li>＞0：10Y－3M高于10Y－2Y。</li>
+        <li>＝0：两个利差相等。</li>
+        <li>＜0：10Y－3M低于10Y－2Y，意味着2Y低于3M。</li>
+      </ul>
+      <p>文章将2Y－3M倒挂视为危机阶段的观察信号；这是历史经验解释，不是危机必然发生的充分条件。</p>
+    </aside>
+    <ol class="limits">
+      <li>3个月收益率更贴近近期政策利率；2年期还包含未来政策路径预期；10年期同时受增长、通胀、期限溢价及全球资金需求影响。</li>
+      <li>“短债是美国，长债是世界”是文章的简化分析视角，不是严格定义。</li>
+      <li>10Y－3M扩大不能单独证明美国经济强，10Y－2Y倒挂也不能单独证明全球经济衰退。</li>
+      <li>利差扩大或缩窄，需要检查各期限收益率分别如何变化。</li>
+      <li>本图分析文章所描述的历史情景，不标注为当前市场状态。</li>
+    </ol>
+    <p class="foot">依据原文分析框架整理；条件性解释不代表确定因果。</p>
+  </figure>`;
+}
+
 function renderMarkdown(markdown) {
   const lines = String(markdown || "").replace(/\r\n/g, "\n").split("\n");
   const html = [];
@@ -308,6 +425,8 @@ function renderMarkdown(markdown) {
       const src = safeImage(image[2]);
       if (src && src.includes("monetary-policy-flow")) {
         html.push(flowDiagram());
+      } else if (src && src.includes("yield-spread-fork")) {
+        html.push(spreadDiagram());
       } else if (src) {
         html.push(`<figure><img src="${escapeHtml(src)}" alt="${escapeHtml(unescapeMd(image[1]))}" loading="lazy"></figure>`);
       }
