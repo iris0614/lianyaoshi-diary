@@ -407,6 +407,184 @@ function spreadDiagram() {
   </figure>`;
 }
 
+function tgaDiagram() {
+  const arr = (extra = "") => `<div class="arr ${extra}"><i></i></div>`;
+  const node = (cls, html) => `<div class="node ${cls}">${html}</div>`;
+  const solid = (cls, items) => items.map((html, i) => `${i ? arr() : ""}${node(cls, html)}`).join("");
+  const dashed = (cls, items) => items.map((html, i) => `${i ? arr("dash") : ""}${node(cls, html)}`).join("");
+  return `<figure class="mech">
+    <figcaption>“美联储 × 美国财政部：TGA、准备金与市场预期的传导机制”</figcaption>
+    <p class="question"><strong>“TGA余额下降，是否必然带来市场流动性持续宽松？”</strong></p>
+    <p class="legend"><span><i class="treas"></i>财政部／TGA</span><span><i class="fed"></i>美联储</span><span><i class="rsv"></i>准备金</span><span><i class="mkt"></i>市场预期</span><span><i class="solid"></i>实线：账户结算或资产负债表</span><span><i class="dashed"></i>虚线：条件性宏观传导</span></p>
+
+    <p class="layer">一、财政与货币如何改变准备金</p>
+    <div class="split">
+      <section class="panel treas">
+        <h3>财政部：发债与支出</h3>
+        <div class="tag">路径A：发债融资并将资金留存在TGA</div>
+        ${solid("treas", [
+          "认购资金结算进入TGA",
+          "TGA余额上升",
+          "在其他条件不变时，<br>银行体系准备金下降"
+        ])}
+        <div class="tag">路径B：财政部从TGA支付支出</div>
+        ${solid("treas", [
+          "收款人的银行存款增加",
+          "收款银行在美联储的准备金增加",
+          "TGA余额下降"
+        ])}
+        <p class="note">这里区分“发债筹资”与“财政支出”，不能将二者统称为同一种流动性影响。</p>
+      </section>
+      <section class="panel fed">
+        <h3>美联储：资产购买与资产收缩</h3>
+        <div class="tag">路径A：美联储在二级市场购买证券</div>
+        ${solid("fed", [
+          "美联储资产增加",
+          "银行体系准备金通常增加"
+        ])}
+        <div class="tag">路径B：缩表</div>
+        ${solid("fed", [
+          "在其他条件不变时，<br>准备金面临下降压力"
+        ])}
+        ${node("fed taper", "减少购债／Taper：新增购买放缓，不等于立即缩表，也不等于准备金必然下降。")}
+      </section>
+    </div>
+    <div class="merge desk" aria-hidden="true"><b></b><i></i></div>
+    ${arr("mob")}
+    ${node("rsv hub", "<strong>准备金变化取决于多项资产负债表变化的净结果。</strong>")}
+    ${arr()}
+    <p class="formula"><strong>Δ准备金 ≈ Δ美联储资产－ΔTGA－Δ逆回购－Δ流通现金－Δ其他净负债</strong></p>
+    <p class="note">简化资产负债表关系；不能直接写成“准备金余额＝扩表速度－财政刺激速度”。</p>
+
+    <p class="layer">二、TGA下降时，美联储如何影响最终结果</p>
+    ${node("treas", "TGA下降：财政支出释放资金")}
+    <div class="stem desk" aria-hidden="true"></div>
+    <div class="fork">
+      <div class="rail desk" aria-hidden="true"><b></b><i></i><i></i><i></i></div>
+      <section class="branch">
+        ${arr("mob")}
+        <div class="tag">情景A：美联储继续购债</div>
+        ${solid("fed", [
+          "购债与TGA下降<br>均可能增加准备金",
+          "若其他因素未抵消，<br>准备金上升",
+          "银行体系流动性更充裕"
+        ])}
+      </section>
+      <section class="branch">
+        ${arr("mob")}
+        <div class="tag">情景B：美联储减少购债</div>
+        ${solid("fed", [
+          "来自购债的<br>准备金增量减少",
+          "是否仍增加，取决于<br>TGA及其他项目变化",
+          "不能直接判断<br>为流动性收缩"
+        ])}
+      </section>
+      <section class="branch">
+        ${arr("mob")}
+        <div class="tag">情景C：美联储缩表</div>
+        ${solid("fed", [
+          "缩表与TGA下降<br>的影响方向相反",
+          "比较双方规模<br>及其他项目变化",
+          "最终准备金可能上升、<br>持平或下降"
+        ])}
+      </section>
+    </div>
+    <p class="note">财政支出并不意味着美联储必然对冲；美联储的应对取决于政策目标及市场条件。</p>
+    <aside class="aside">准备金充裕不等于信贷、投资或风险资产必然上涨；还受银行资产负债表约束、融资需求与风险偏好影响。</aside>
+
+    <p class="layer">三、实际利率与资产的传导</p>
+    <div class="split">
+      <section class="panel treas">
+        <div class="tag">路径A</div>
+        ${dashed("treas", [
+          "财政刺激与需求恢复预期",
+          "可能推升通胀预期"
+        ])}
+      </section>
+      <section class="panel fed">
+        <div class="tag">路径B</div>
+        ${dashed("fed", [
+          "美联储购债与宽松预期",
+          "可能压低名义收益率及期限溢价"
+        ])}
+      </section>
+    </div>
+    <div class="merge dash desk" aria-hidden="true"><b></b><i></i></div>
+    ${arr("dash mob")}
+    <p class="formula mkt"><strong>实际利率 ≈ 名义利率－通胀预期</strong></p>
+    ${arr("dash")}
+    ${node("mkt", "若名义利率受到抑制，同时通胀预期上升")}
+    ${arr("dash")}
+    ${node("mkt end", "<strong>实际利率下降</strong>")}
+    <div class="stem dash desk" aria-hidden="true"></div>
+    <div class="fork outcomes">
+      <div class="rail dash desk" aria-hidden="true"><b></b><i></i><i></i><i></i></div>
+      <section class="branch">
+        ${arr("dash mob")}
+        ${node("mkt", "<strong>黄金的持有机会成本下降。</strong><span>其他条件不变时</span>")}
+      </section>
+      <section class="branch">
+        ${arr("dash mob")}
+        ${node("mkt", "<strong>资产估值获得支持。</strong><span>其他条件不变时</span>")}
+      </section>
+      <section class="branch">
+        ${arr("dash mob")}
+        ${node("mkt", "<strong>美元及新兴市场<br>资金流动受到影响。</strong><span>方向还取决于相对利率与风险偏好</span>")}
+      </section>
+    </div>
+    <div class="reverse">
+      <div class="tag">相反方向</div>
+      ${dashed("mkt", [
+        "若市场预期宽松减弱",
+        "实际利率可能先行上升",
+        "黄金及高估值资产可能承压"
+      ])}
+    </div>
+
+    <p class="layer">四、为什么政策尚未落地，市场已经变化？</p>
+    <div class="compare">
+      <section class="panel rsv">
+        <h3>实际状态</h3>
+        <ul>
+          <li>准备金余额。</li>
+          <li>TGA余额。</li>
+          <li>美联储资产规模及实际购债。</li>
+          <li>逆回购等其他负债项目。</li>
+        </ul>
+        <p class="result">反映已发生的账户与政策变化。</p>
+      </section>
+      <div class="bidi"><i></i><span>相互验证；<br>可能不同步。</span></div>
+      <section class="panel mkt">
+        <h3>市场隐含预期</h3>
+        <ul>
+          <li>实际利率及其期限结构。</li>
+          <li>短期利率与政策利率预期。</li>
+          <li>黄金等资产价格。</li>
+        </ul>
+        <p class="result">包含未来政策、增长、通胀与风险溢价的定价。</p>
+      </section>
+    </div>
+    <p class="seq-label">预期传导顺序</p>
+    <div class="seq">
+      ${node("fed", "美联储沟通变化")}
+      <div class="harr desk" aria-hidden="true"></div>
+      ${arr("dash mob")}
+      ${node("mkt", "市场调整未来政策预期")}
+      <div class="harr desk" aria-hidden="true"></div>
+      ${arr("dash mob")}
+      ${node("mkt", "利率与资产价格<br>可能先变化")}
+      <div class="harr desk" aria-hidden="true"></div>
+      ${arr("dash mob")}
+      ${node("rsv", "后续政策操作及<br>准备金数据再体现")}
+    </div>
+    <p class="note">示意路径，并非固定先后顺序；实际利率不只反映准备金预期。</p>
+
+    <aside class="history"><strong>文章借2011—2014年的经历说明：购债仍在继续，市场也可能提前交易未来宽松减弱。</strong></aside>
+    <p class="conclusion"><strong>不能只看TGA，也不能只看美联储是否仍在购债；需要同时看准备金的净变化，以及市场对未来政策路径的预期。</strong></p>
+    <p class="foot">依据2021年2月28日日记整理；账户机制与条件性市场推演分开呈现。</p>
+  </figure>`;
+}
+
 function renderMarkdown(markdown) {
   const lines = String(markdown || "").replace(/\r\n/g, "\n").split("\n");
   const html = [];
@@ -426,6 +604,8 @@ function renderMarkdown(markdown) {
         html.push(flowDiagram());
       } else if (src && src.includes("yield-spread-fork")) {
         html.push(spreadDiagram());
+      } else if (src && src.includes("tga-reserves-mechanism")) {
+        html.push(tgaDiagram());
       } else if (src) {
         html.push(`<figure><img src="${escapeHtml(src)}" alt="${escapeHtml(unescapeMd(image[1]))}" loading="lazy"></figure>`);
       }
