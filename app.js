@@ -62,6 +62,9 @@ function inline(raw) {
       const href = match[4].trim();
       if (/^https?:\/\//i.test(href)) {
         html += `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(match[3])}</a>`;
+      } else if (/^#entry\//.test(href)) {
+        const id = href.slice("#entry/".length);
+        html += `<a href="${escapeHtml(href)}" data-entry-id="${escapeHtml(id)}">${escapeHtml(match[3])}</a>`;
       } else {
         html += escapeHtml(match[3]);
       }
@@ -1057,6 +1060,14 @@ $("list").addEventListener("click", (event) => {
   }
   const entryButtonNode = event.target.closest("button[data-id]");
   if (entryButtonNode) openEntry(entryButtonNode.dataset.id);
+});
+
+$("reader").addEventListener("click", (event) => {
+  const link = event.target.closest("a[data-entry-id]");
+  if (!link) return;
+  event.preventDefault();
+  const id = link.dataset.entryId;
+  if (id && state.catalog.some((entry) => entry.id === id)) openEntry(id);
 });
 
 $("viewList").onclick = () => setView("list");
